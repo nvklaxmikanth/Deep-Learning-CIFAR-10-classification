@@ -39,11 +39,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 
 To reproduce the results and to download the model follow the procedure in this section. 
 
-### Dependencies
-
-This project uses python. Hence python version 3.7.xx or higher should be installed. We recommend installing with Anaconda and adding it to the path of Windows. Git is also recommended to easily download files from GitHub. Alternatively you can also download the folder from GitHub directly. The links for both are given below
-* [Python](https://www.python.org/)
-* [Git](https://git-scm.com/)
 
 ### Installation
 
@@ -65,26 +60,6 @@ _How to reproduce the result and or clone the repository_
    ```sh
    python infer.py
    ```
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-## Methodology
-
-Residual blocks can be defined as a function 
-xl+1 = xl + F (xl, Wl) (1).
-where, xl+1 and xl are input and output of the l-th layer of the ResNet network, F is the residual function and W are the block parameters. The ResNet consists of N residual layers, where each layer consists of one or more residual blocks. The input to the network is a tensor Xinput with shape < Hi, Wi, Ci >, where Hi and Wi are the spatial dimensions and Ci is the number of channels. 
-
-Our goal is to maximize test accuracy for a given resource constraint. The model parameters we are allowed to change are - 
-1. Number of residual layers, 
-2. Number of blocks in residual layer i, 
-3. Number of channels in residual layer i 
-4. Convolutional kernel size in residual layer i, 
-5. Skip connection kernel size in residual layer i, and 
-6. Average pool kernel size.
-
-In this project, we adopt the random search technique for hyperparameter tuning. The main goal of our learning algorithm is to find a function fθ that minimizes the pre-defined loss L(x; fθ ) over a dataset Xtrain. The learning algorithm computes f through the optimization of a set of parameters θ. The random search technique involves defining a search space as a bounded domain for the model hyperparameters and randomly sample points in that domain.
-
-![Random Search](/images/num_block_inplane_effects.png)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -112,7 +87,7 @@ We use **random search** to optimize hyperparameters, defining a bounded search 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## 📌 Key Architectural Components
+## Key Architectural Components
 
 - **Input Layer** → Accepts an image of size \((3 \times 32 \times 32)\)
 - **Initial Convolution** → 3×3 Conv with **16 filters**, BatchNorm, ReLU
@@ -126,18 +101,19 @@ We use **random search** to optimize hyperparameters, defining a bounded search 
 - **Fully Connected Layer** → Maps features to class scores
 - **Softmax Output** → Predicts probabilities for **10 classes**
 
-## 📊 Network Architecture & Hyperparameter Optimization
+##  Network Architecture & Hyperparameter Optimization
 
-### 🔬 Depth of the Network
+###  Depth of the Network
 - More layers improve hierarchical feature extraction but can cause **vanishing gradients**  
 - We optimize depth to **balance performance & efficiency**  
 
-### 📏 Width of Residual Blocks
+###  Width of Residual Blocks
 - More channels → **Better feature representation**  
 - Wider models are often **more efficient** than deeper models  
 
-### 🖼️ Data Augmentation Techniques
+### Data Augmentation Techniques
 To enhance **generalization** and prevent **overfitting**, we apply:
+
 **Random Cropping** → Extracts **32×32** patches 📦  
 **Random Rotation** → Applies **−5° to +5°** rotations 🔄  
 **Random Horizontal Flip** → 50% chance of flipping ↔
