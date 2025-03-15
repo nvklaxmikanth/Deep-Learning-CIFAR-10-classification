@@ -1,6 +1,6 @@
 # Deep-Learning-CIFAR-10-classification
 
-[Geetha Krishna Guruju](gg3039@nyu.edu), [NVK Laxmi Kanth](vn2263@nyu.edu), [Jeevana Bhumireddy](jb8855@nyu.edu),
+[Geetha Krishna Guruju](gg3039@nyu.edu), [Venkat Kumar Laxmi Kanth Nemala](vn2263@nyu.edu), [Jeevana Bhumireddy](jb8855@nyu.edu),
 
 New York University
 
