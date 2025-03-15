@@ -87,3 +87,22 @@ We use **random search** to optimize hyperparameters, defining a bounded search 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+# Results
+
+The model exhibited a steady improvement in both training and test accuracy throughout training. Below are key observations and a summary of accuracy progression:
+
+
+### Key Observations
+
+- **Training Accuracy** (solid blue line) consistently increased, approaching **100%** by the end of training.
+- **Test Accuracy** (dashed orange line) showed fluctuations but remained above **90%** after 50 epochs, stabilizing at **94.60%** after 200 epochs.
+- The trends observed in the accuracy table align with the plotted accuracy curve, confirming consistency in recorded values.
+
+## Training Progress and Accuracy Improvements
+
+| Epoch | Train Accuracy | Test Accuracy |
+|-------|--------------|--------------|
+| 0     | 27.91%       | 50.60%       |
+| 50    | 92.25%       | 90.59%       |
+| 100   | 95.65%       | 91.98%       |
+| 200   | 99.92%       | **94.60%**   |
