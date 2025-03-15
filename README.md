@@ -85,8 +85,6 @@ where, \(x_{l+1}\) and \(x_l\) are the input and output of the \(l\)-th layer, \
 ### Hyperparameter Tuning
 We use **random search** to optimize hyperparameters, defining a bounded search space and selecting random configurations to improve accuracy and minimize loss.
 
-<p align="right">(<a href="#top">back to top</a>)</p>
-
 # Results
 
 The model exhibited a steady improvement in both training and test accuracy throughout training. Below are key observations and a summary of accuracy progression:
@@ -106,3 +104,5 @@ The model exhibited a steady improvement in both training and test accuracy thro
 | 50    | 92.25%       | 90.59%       |
 | 100   | 95.65%       | 91.98%       |
 | 200   | 99.92%       | **94.60%**   |
+
+<p align="right">(<a href="#top">back to top</a>)</p>
