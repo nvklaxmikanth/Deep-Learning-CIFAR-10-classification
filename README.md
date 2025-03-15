@@ -87,33 +87,3 @@ We use **random search** to optimize hyperparameters, defining a bounded search 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-## Key Architectural Components
-
-- **Input Layer** → Accepts an image of size \((3 \times 32 \times 32)\)
-- **Initial Convolution** → 3×3 Conv with **16 filters**, BatchNorm, ReLU
-- **Residual Layers**  
-  - **Layer 1:** Multiple **BasicBlocks**, 16 filters  
-  - **Layer 2:** 32 filters, **stride = 2** (reduces spatial dimensions)  
-  - **Layer 3:** 64 filters, **stride = 2**  
-- **BasicBlock Design** → 2×(3×3 Conv + BatchNorm + ReLU) with **skip connections**
-- **Shortcut Connections** → Uses **1×1 Conv** when dimensions mismatch
-- **Global Average Pooling** → Reduces feature maps to **single vectors**
-- **Fully Connected Layer** → Maps features to class scores
-- **Softmax Output** → Predicts probabilities for **10 classes**
-
-##  Network Architecture & Hyperparameter Optimization
-
-###  Depth of the Network
-- More layers improve hierarchical feature extraction but can cause **vanishing gradients**  
-- We optimize depth to **balance performance & efficiency**  
-
-###  Width of Residual Blocks
-- More channels → **Better feature representation**  
-- Wider models are often **more efficient** than deeper models  
-
-### Data Augmentation Techniques
-To enhance **generalization** and prevent **overfitting**, we apply:
-
-**Random Cropping** → Extracts **32×32** patches 📦  
-**Random Rotation** → Applies **−5° to +5°** rotations 🔄  
-**Random Horizontal Flip** → 50% chance of flipping ↔
