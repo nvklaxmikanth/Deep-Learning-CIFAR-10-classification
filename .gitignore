@@ -1,0 +1,24 @@
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore virtual environments
+venv/
+.env/
+
+# Ignore dataset and model weights
+dataset/
+checkpoints/
+best_model/
+*.pth
+*.pt
+
+# Ignore logs and results
+logs/
+results/
+*.log
+
+# Ignore system files
+.DS_Store
+Thumbs.db
