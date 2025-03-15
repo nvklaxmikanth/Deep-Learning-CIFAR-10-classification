@@ -4,33 +4,10 @@
 
 New York University
 
-<!-- TABLE OF CONTENTS -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#Introduction">Introduction</a>
-      <ul>
-        <li><a href="#implementation">Implementation</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#dependencies">Dependencies</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#methodology">Methodology</a></li>
-    <li><a href="#experiment">Experiment</a></li>
-    <li><a href="#results">Results</a></li>
-  </ol>
-</details>
-
 
 ## Introduction
 
-![Product Name Screen Shot](/images/architechture.png)
+![Architechture](/images/architechture.png)
 
 Deep learning has revolutionized image classification, with Residual Networks (ResNets) emerging as a cornerstone in achieving high accuracy on complex datasets. By incorporating skip connections, ResNets effectively mitigate the vanishing gradient problem, allowing for deeper architectures that extract rich hierarchical features. However, as model depth increases, so does the computational cost, making it essential to strike a balance between accuracy and efficiency.
 
@@ -51,7 +28,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 * [Python](https://www.python.org/)
 * [PyTorch](https://pytorch.org/)
 * [Weights & Biases](https://wandb.ai/site)
-* [Torch Ray Tune](https://docs.ray.io/en/latest/tune/getting-started.html)
 * [Matplotlib](https://matplotlib.org/)
 * [Cifar-10 dataset](https://www.cs.toronto.edu/~kriz/cifar.html)
 
@@ -75,23 +51,19 @@ _How to reproduce the result and or clone the repository_
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/taiyipan/TPSNet
+   git clone https://github.com/geethaguruju/Deep-Learning-CIFAR-10-classification.git
    ```
-2. Change Directory into the folder
-   ```
-   cd TPSNet
-   ```
-3. Install requirements
+2. Install requirements
    ```sh
    pip3 install requirements.txt
    ```
-4. Run train script `train.py` to recreate similar model
+3. Run train script `train.py` to recreate similar model
    ```sh
-   python3 train.py
+   python train.py
    ```
-5. To Reproduce the accuracy of TPSNet(model), run `test.py` and ensure the model is on the right folder. This script will normalise the images to right value.
+4. To generate the predictions for the test data
    ```sh
-   python3 test.py
+   python infer.py
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -117,3 +89,55 @@ In this project, we adopt the random search technique for hyperparameter tuning.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+## Methodology
+
+Residual blocks can be defined as a function:
+
+```math
+x_{l+1} = x_l + F(x_l, W_l)
+```
+
+where, \(x_{l+1}\) and \(x_l\) are the input and output of the \(l\)-th layer, \(F\) is the residual function, and \(W\) are the block parameters. ResNet consists of \(N\) residual layers, each containing one or more residual blocks. The input to the network is a tensor \(X_{input}\) with shape \((H_i, W_i, C_i)\), where \(H_i\) and \(W_i\) are spatial dimensions, and \(C_i\) is the number of channels.
+
+### Key Optimized Parameters
+- Number of residual layers
+- Number of blocks in each residual layer
+- Number of channels per residual layer
+- Convolutional kernel size in each residual layer
+- Skip connection kernel size
+- Average pooling kernel size
+
+### Hyperparameter Tuning
+We use **random search** to optimize hyperparameters, defining a bounded search space and selecting random configurations to improve accuracy and minimize loss.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+## 📌 Key Architectural Components
+
+- **Input Layer** → Accepts an image of size \((3 \times 32 \times 32)\)
+- **Initial Convolution** → 3×3 Conv with **16 filters**, BatchNorm, ReLU
+- **Residual Layers**  
+  - **Layer 1:** Multiple **BasicBlocks**, 16 filters  
+  - **Layer 2:** 32 filters, **stride = 2** (reduces spatial dimensions)  
+  - **Layer 3:** 64 filters, **stride = 2**  
+- **BasicBlock Design** → 2×(3×3 Conv + BatchNorm + ReLU) with **skip connections**
+- **Shortcut Connections** → Uses **1×1 Conv** when dimensions mismatch
+- **Global Average Pooling** → Reduces feature maps to **single vectors**
+- **Fully Connected Layer** → Maps features to class scores
+- **Softmax Output** → Predicts probabilities for **10 classes**
+
+## 📊 Network Architecture & Hyperparameter Optimization
+
+### 🔬 Depth of the Network
+- More layers improve hierarchical feature extraction but can cause **vanishing gradients**  
+- We optimize depth to **balance performance & efficiency**  
+
+### 📏 Width of Residual Blocks
+- More channels → **Better feature representation**  
+- Wider models are often **more efficient** than deeper models  
+
+### 🖼️ Data Augmentation Techniques
+To enhance **generalization** and prevent **overfitting**, we apply:
+**Random Cropping** → Extracts **32×32** patches 📦  
+**Random Rotation** → Applies **−5° to +5°** rotations 🔄  
+**Random Horizontal Flip** → 50% chance of flipping ↔
